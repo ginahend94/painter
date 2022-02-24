@@ -1,6 +1,6 @@
-*, ::before, ::after {
+/* *, ::before, ::after {
     box-sizing: border-box;
-}
+} */
 
 .wrapper {
     display:flex;
@@ -12,6 +12,5 @@
     width: 960px;
     height: 960px;
     display: grid;
-    grid-template-columns: repeat(16, 1fr);
     border: solid 1px red;
 }
