@@ -9,7 +9,7 @@ container.addEventListener('mousedown', () => isDragging = true);
 container.addEventListener('mouseup', () => isDragging = false);
 
 // Allow user input (prompt) for grid size (>= 100 x 100)
-    function setGridSize() {
+function setGridSize() {
     do { gridSize = parseInt(prompt('What size grid? (Between 16 and 100)', 16)); }
     while (gridSize < 16 || gridSize > 100);
     return gridSize;
@@ -24,13 +24,14 @@ function createGrid(gridsize) {
     }
     container.style.gridTemplateColumns = `repeat(${gridsize}, 1fr)`;
     container.style.gridTemplateRows = `repeat(${gridsize}, 1fr)`;
-// Add "hover" effect
-    pixel.forEach(a => a.addEventListener('mouseenter', setColor.bind(a, 'black')));
+// Add draw on drag
+    pixel.forEach(a => a.addEventListener('click', setColor.bind(a)));
+    pixel.forEach(a => a.addEventListener('mouseover', setColor.bind(a)));
 }
 createGrid(setGridSize());
 
-function setColor(color) {
-    if (isDragging) this.style.backgroundColor = color;
+function setColor(e) {
+    if (isDragging || e.type == 'click') this.style.backgroundColor = 'black';
 }
 
 // Add "clear grid" button at top of screen
