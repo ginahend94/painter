@@ -1,8 +1,15 @@
-// Create 16 x 16 grid using divs
+// Create grid using divs
 const wrapper = document.querySelector('.wrapper');
 const container = document.querySelector('.container');
 
 let pixel = [];
+
+// Allow user input (prompt) for grid size (>= 100 x 100)
+    function setGridSize() {
+    do { gridSize = parseInt(prompt('What size grid? (Between 16 and 100)', 16)); }
+    while (gridSize < 16 || gridSize > 100);
+    return gridSize;
+}
 
 function createGrid(gridsize) {
     pixel = [];
@@ -15,7 +22,7 @@ function createGrid(gridsize) {
     container.style.gridTemplateColumns = `repeat(${gridsize}, 1fr)`;
     container.style.gridTemplateRows = `repeat(${gridsize}, 1fr)`;
 // Add "hover" effect
-    pixel.forEach(a => a.addEventListener('mouseover', setColor.bind(a, 'black')));
+    pixel.forEach(a => a.addEventListener('mousedown', setColor.bind(a, 'black')));
 }
 createGrid(setGridSize());
 
@@ -29,17 +36,9 @@ clearButton.textContent = "Clear Grid";
 clearButton.addEventListener('click', clearGrid)
 wrapper.insertBefore(clearButton, container);
 
-// Allow user input (prompt) for grid size (>= 100 x 100)
-    function setGridSize() {
-    do { gridSize = parseInt(prompt('What size grid? (Between 16 and 100)', 16)); }
-    while (gridSize < 16 || gridSize > 100);
-    return gridSize;
-}
 function clearGrid() {
-    pixel.forEach(a => a.style.backgroundColor = 'transparent');
+    pixel.forEach(a => container.removeChild(a));
     createGrid(setGridSize());
 }
 
-
-// Stay within 960px wide
 // OPTIONAL: Each pass of mouse adds 10% black to color, after 10 passes the square is black
