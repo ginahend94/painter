@@ -1,3 +1,13 @@
+*, ::before, ::after {
+    box-sizing: border-box;
+}
+
+.wrapper {
+    display:flex;
+    align-items: center;
+    flex-direction: column;
+}
+
 .container {
     width: 960px;
     height: 960px;
