@@ -1,3 +1,5 @@
+//import html2canvas from "html2canvas";
+
 const container = document.querySelector('.canvas');
 const clearButton = document.querySelector('.clear');
 const button16 = document.querySelector('.btn-16');
@@ -88,4 +90,8 @@ const swatchColors = (() => {
     })
 })()
 
-// OPTIONAL: Each pass of mouse adds 10% black to color, after 10 passes the square is black
+// Save photo
+const savePhoto = () => {
+    html2canvas(container)
+        .then(canvas => console.log(canvas))
+}
