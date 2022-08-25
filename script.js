@@ -80,7 +80,7 @@ button100.addEventListener('click', () => {
 buttonCustom.addEventListener('click', () => {
     if (clearCanvas()) createGrid(setGridSize());
 })
-buttonSave.addEventListener('click', () => console.log('will save'));
+buttonSave.addEventListener('click', () => savePhoto());
 
 const swatchColors = (() => {
     const swatches = [...document.querySelectorAll('.swatch')];
@@ -91,7 +91,20 @@ const swatchColors = (() => {
 })()
 
 // Save photo
-const savePhoto = () => {
-    html2canvas(container)
-        .then(canvas => console.log(canvas))
+const savePhoto = async () => {
+    const canvas = await html2canvas(container);
+    const dataURL = canvas.toDataURL('image/png');
+    const url = dataURL.replace(/^data:image\/png/, 'data:application/octet-stream');
+    const today = new Date().toISOString();
+	const downloadLink = document.createElement('a');
+    downloadLink.setAttribute('download', `image-${today.split('T')[0]}.png`);
+    downloadLink.setAttribute('href', url);
+    downloadLink.click();
+    
+    
+    
+//   let dataURL = canvas.toDataURL('image/png');
+//   let url = dataURL.replace(/^data:image\/png/,'data:application/octet-stream');
+// 	downloadLink.setAttribute('href',url);
+// 	downloadLink.click();
 }
