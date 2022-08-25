@@ -1,4 +1,5 @@
 const container = document.querySelector('.canvas');
+const colorPicker = document.querySelector('.color-picker');
 
 let pixel = [];
 
@@ -23,25 +24,30 @@ function createGrid(gridsize) {
     container.style.gridTemplateColumns = `repeat(${gridsize}, 1fr)`;
     container.style.gridTemplateRows = `repeat(${gridsize}, 1fr)`;
 // Add draw on drag
-    pixel.forEach(a => a.addEventListener('click', setColor.bind(a)));
-    pixel.forEach(a => a.addEventListener('mousemove', setColor.bind(a)));
+    pixel.forEach(a => a.addEventListener('click', colorPixel.bind(a)));
+    pixel.forEach(a => a.addEventListener('mousemove', colorPixel.bind(a)));
 }
 createGrid(100);
+let paintColor = "#000000";
+const setColor = (color) => {
+    paintColor = color;
+    colorPicker.value = color;
+}
 
-function setColor(e) {
-    if (isDragging || e.type == 'click' || e.type == 'mousedown') this.style.backgroundColor = 'black';
+function colorPixel(e) {
+    if (isDragging || e.type == 'click' || e.type == 'mousedown') this.style.backgroundColor = paintColor;
 }
 
 function clearGrid() {
-    pixel.forEach(a => container.removeChild(a));
+    pixel.forEach(a => a.style.backgroundColor = '#ffffff');
     createGrid(setGridSize());
 }
 
 const swatchColors = (() => {
     const swatches = [...document.querySelectorAll('.swatch')];
-    console.log(swatches)
     swatches.forEach(swatch => {
         swatch.style.backgroundColor = swatch.dataset.color;
+        swatch.addEventListener('click', (e) => setColor(e.target.dataset.color));
     })
 })()
 
