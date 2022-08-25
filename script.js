@@ -1,4 +1,8 @@
 const container = document.querySelector('.canvas');
+const clearButton = document.querySelector('.clear');
+const button16 = document.querySelector('.btn-16');
+const button32 = document.querySelector('.btn-32');
+const button100 = document.querySelector('.btn-100');
 const colorPicker = document.querySelector('.color-picker');
 
 let pixel = [];
@@ -15,17 +19,19 @@ function setGridSize() {
 }
 
 function createGrid(gridsize) {
+    container.innerHTML = '';
     pixel = [];
     for (let i = 0; i < (gridsize * gridsize); i++) {
         pixel[i] = document.createElement('div');
         pixel[i].classList.add('pixel');
         container.appendChild(pixel[i]);
+        pixel[i].style.opacity = 0;
     }
     container.style.gridTemplateColumns = `repeat(${gridsize}, 1fr)`;
     container.style.gridTemplateRows = `repeat(${gridsize}, 1fr)`;
 // Add draw on drag
     pixel.forEach(a => a.addEventListener('click', colorPixel.bind(a)));
-    pixel.forEach(a => a.addEventListener('mousemove', colorPixel.bind(a)));
+    pixel.forEach(a => a.addEventListener('mouseover', colorPixel.bind(a)));
 }
 createGrid(100);
 let paintColor = "#000000";
@@ -34,14 +40,31 @@ const setColor = (color) => {
     colorPicker.value = color;
 }
 
+colorPicker.addEventListener('input', (e) => setColor(e.target.value))
+
 function colorPixel(e) {
-    if (isDragging || e.type == 'click' || e.type == 'mousedown') this.style.backgroundColor = paintColor;
+    if (isDragging || e.type == 'click' || e.type == 'mousedown') {
+        this.style.opacity = `${parseFloat(this.style.opacity) + .1}`;
+        this.style.backgroundColor = paintColor;
+    }
 }
 
 function clearGrid() {
-    pixel.forEach(a => a.style.backgroundColor = '#ffffff');
-    createGrid(setGridSize());
+    pixel.forEach(a => a.style.backgroundColor = 'transparent');
 }
+
+const clearCanvas = () => {
+    if (confirm('Are you sure you want to erase your drawing?')) {
+        clearGrid();
+        return true;
+    }
+    return false;
+}
+
+clearButton.addEventListener('click', clearCanvas)
+button16.addEventListener('click', () => {
+    if (clearCanvas()) createGrid(16);
+})
 
 const swatchColors = (() => {
     const swatches = [...document.querySelectorAll('.swatch')];
