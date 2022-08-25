@@ -1,6 +1,4 @@
-// Create grid using divs
-const wrapper = document.querySelector('.wrapper');
-const container = document.querySelector('.container');
+const container = document.querySelector('.canvas');
 
 let pixel = [];
 
@@ -26,23 +24,25 @@ function createGrid(gridsize) {
     container.style.gridTemplateRows = `repeat(${gridsize}, 1fr)`;
 // Add draw on drag
     pixel.forEach(a => a.addEventListener('click', setColor.bind(a)));
-    pixel.forEach(a => a.addEventListener('mouseover', setColor.bind(a)));
+    pixel.forEach(a => a.addEventListener('mousemove', setColor.bind(a)));
 }
-createGrid(setGridSize());
+createGrid(100);
 
 function setColor(e) {
-    if (isDragging || e.type == 'click') this.style.backgroundColor = 'black';
+    if (isDragging || e.type == 'click' || e.type == 'mousedown') this.style.backgroundColor = 'black';
 }
-
-// Add "clear grid" button at top of screen
-const clearButton = document.createElement('button');
-clearButton.textContent = "Clear Grid";
-clearButton.addEventListener('click', clearGrid)
-wrapper.insertBefore(clearButton, container);
 
 function clearGrid() {
     pixel.forEach(a => container.removeChild(a));
     createGrid(setGridSize());
 }
+
+const swatchColors = (() => {
+    const swatches = [...document.querySelectorAll('.swatch')];
+    console.log(swatches)
+    swatches.forEach(swatch => {
+        swatch.style.backgroundColor = swatch.dataset.color;
+    })
+})()
 
 // OPTIONAL: Each pass of mouse adds 10% black to color, after 10 passes the square is black

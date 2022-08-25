@@ -1,16 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Etch-A-Sketch</title>
+    <title>Painter</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
 </head>
+
 <body>
-    <div class="wrapper">
-        <div class="container"></div>
-        <script src="script.js"></script>
+    <h1>Painter</h1>
+    <div class="buttons">
+        <button class="clear">Clear</button>
+        <button class="sixteen">16 x 16</button>
+        <button class="32">32 x 32</button>
+        <button class="100">100 x 100</button>
+        <button class="custom">Custom Size...</button>
+        <button class="save">Save Image</button>
     </div>
+    <div class="colors">
+        <div class="swatch black" data-color="#000000"></div>
+        <div class="swatch gray" data-color="#808080"></div>
+        <div class="swatch dark-red" data-color="#8B0000"></div>
+        <div class="swatch red" data-color="#ff0000"></div>
+        <div class="swatch orange" data-color="#ffa500"></div>
+        <div class="swatch yellow" data-color="#ffff00"></div>
+        <div class="swatch green" data-color="#008000"></div>
+        <div class="swatch cyan" data-color="#00FFFF"></div>
+        <div class="swatch blue" data-color="#0000FF"></div>
+        <div class="swatch purple" data-color="#800080"></div>
+
+        <div class="swatch white" data-color="#ffffff"></div>
+        <div class="swatch light-gray" data-color="#D3D3D3"></div>
+        <div class="swatch brown" data-color="#8B4513"></div>
+        <div class="swatch pink" data-color="#FFC0CB"></div>
+        <div class="swatch light-orange" data-color="#FCD299"></div>
+        <div class="swatch light-yellow" data-color="#FFFFCC"></div>
+        <div class="swatch light-green" data-color="#98FB98"></div>
+        <div class="swatch light-cyan" data-color="#AFEEEE"></div>
+        <div class="swatch light-blue" data-color="#00BFFF"></div>
+        <div class="swatch light-purple" data-color="#EE82EE"></div>
+
+        <input type="color" class="color-picker">
+    </div>
+    <div class="canvas"></div>
+    <script src="script.js"></script>
 </body>
+
 </html>
