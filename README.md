@@ -1,2 +1,2 @@
-# etch-a-sketch
-The Odin Project
+# Painter
+A simple drawing program
