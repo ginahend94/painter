@@ -13,8 +13,20 @@ let pixel = [];
 let gridSize;
 
 let isDragging = false;
-container.addEventListener('mousedown', () => isDragging = true);
-container.addEventListener('mouseup', () => isDragging = false);
+container.addEventListener('mousedown', () => {
+    isDragging = true;
+});
+container.addEventListener('touchstart', (e) => {
+    e.preventDefault()
+    isDragging = true;
+});
+container.addEventListener('mouseup', () => {
+    isDragging = false;
+});
+container.addEventListener('touchend', (e) => {
+    e.preventDefault();
+    isDragging = false;
+})
 
 // Allow user input (prompt) for grid size (>= 100 x 100)
 function setGridSize() {
@@ -36,8 +48,17 @@ function createGrid(gridsize) {
     container.style.gridTemplateColumns = `repeat(${gridsize}, 1fr)`;
     container.style.gridTemplateRows = `repeat(${gridsize}, 1fr)`;
 // Add draw on drag
-    pixel.forEach(a => a.addEventListener('click', colorPixel.bind(a)));
-    pixel.forEach(a => a.addEventListener('mouseover', colorPixel.bind(a)));
+    pixel.forEach(a => {
+        a.addEventListener('click', colorPixel.bind(a))
+        a.addEventListener('mouseover', colorPixel.bind(a))
+        a.addEventListener('touchmove', (e) => {
+            let x = e.targetTouches[0].clientX;
+            let y = e.targetTouches[0].clientY;
+            a = document.elementFromPoint(x, y);
+            e.preventDefault();
+            colorPixel.bind(a)();
+        })
+    });
 }
 createGrid(16);
 let paintColor = "#000000";
