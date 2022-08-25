@@ -3,9 +3,12 @@ const clearButton = document.querySelector('.clear');
 const button16 = document.querySelector('.btn-16');
 const button32 = document.querySelector('.btn-32');
 const button100 = document.querySelector('.btn-100');
+const buttonCustom = document.querySelector('.custom');
+const buttonSave = document.querySelector('.save');
 const colorPicker = document.querySelector('.color-picker');
 
 let pixel = [];
+let gridSize;
 
 let isDragging = false;
 container.addEventListener('mousedown', () => isDragging = true);
@@ -13,6 +16,7 @@ container.addEventListener('mouseup', () => isDragging = false);
 
 // Allow user input (prompt) for grid size (>= 100 x 100)
 function setGridSize() {
+    console.log('hi')
     do { gridSize = parseInt(prompt('What size grid? (Between 16 and 100)', 16)); }
     while (gridSize < 16 || gridSize > 100);
     return gridSize;
@@ -33,7 +37,7 @@ function createGrid(gridsize) {
     pixel.forEach(a => a.addEventListener('click', colorPixel.bind(a)));
     pixel.forEach(a => a.addEventListener('mouseover', colorPixel.bind(a)));
 }
-createGrid(100);
+createGrid(16);
 let paintColor = "#000000";
 const setColor = (color) => {
     paintColor = color;
@@ -65,6 +69,16 @@ clearButton.addEventListener('click', clearCanvas)
 button16.addEventListener('click', () => {
     if (clearCanvas()) createGrid(16);
 })
+button32.addEventListener('click', () => {
+    if (clearCanvas()) createGrid(32);
+})
+button100.addEventListener('click', () => {
+    if (clearCanvas()) createGrid(100);
+})
+buttonCustom.addEventListener('click', () => {
+    if (clearCanvas()) createGrid(setGridSize());
+})
+buttonSave.addEventListener('click', () => console.log('will save'));
 
 const swatchColors = (() => {
     const swatches = [...document.querySelectorAll('.swatch')];

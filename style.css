@@ -27,6 +27,7 @@ h1 {
     background-color: rgba(0,0,0,.3);
     color: white;
     font-family: inherit;
+    cursor: pointer;
 }
 
 .colors {
